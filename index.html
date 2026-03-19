@@ -45,22 +45,9 @@
         }
 
         /* --- Lightning Effect CSS --- */
-        .lightning-container {
-            position: relative;
-            width: 100%;
-            padding-top: 100%; /* 1:1 Aspect Ratio to give the parent height */
-            border-radius: 50%;
-            overflow: hidden;
-            /* The mask hides the center of the gradient, showing only the outer ring */
-            mask: radial-gradient(transparent 60%, #000 61%);
-            -webkit-mask: radial-gradient(transparent 60%, #000 61%);
-        }
-
-        .lightning-container::before {
-            content: '';
+        .lightning-bg {
             position: absolute;
-            inset: 0;
-            /* Conic gradient to create the lightning bolt effect */
+            inset: -50%;
             background: conic-gradient(
                 transparent 0deg,
                 theme('colors.secondary') 20deg,
@@ -82,29 +69,12 @@
                 theme('colors.secondary') 340deg,
                 transparent 360deg
             );
-            /* Animation to rotate the gradient */
-            animation: rotate-lightning 4s linear infinite;
+            animation: spin-lightning 4s linear infinite;
         }
 
-        @keyframes rotate-lightning {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Place the image on top of the lightning effect */
-        .profile-image {
-            position: absolute;
-            inset: 4px; /* Inset by the border width to show the effect behind it */
-            width: calc(100% - 8px);
-            height: calc(100% - 8px);
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: top;
-            z-index: 1; /* Ensure image is on top */
+        @keyframes spin-lightning {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
     </style>
@@ -163,11 +133,11 @@
             
             <!-- Profile Picture with Lightning Effect -->
             <div class="md:w-1/2 w-full max-w-sm flex justify-center fade-in delay-100">
-                <div class="relative w-full">
-                    <!-- Lightning Effect Container -->
-                    <div class="lightning-container z-0"></div>
-                    <!-- Profile Image -->
-                    <img src="biopicturemiddle.jpg" alt="Swagat Acharya" class="profile-image shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+                <div class="relative w-full aspect-square rounded-full overflow-hidden shadow-[0_0_40px_rgba(200,16,46,0.3)]">
+                    <!-- Rotating Lightning Background -->
+                    <div class="lightning-bg z-0"></div>
+                    <!-- Profile Image (Overlaps the center, leaving the spinning edge visible) -->
+                    <img src="biopicturemiddle.jpg" alt="Swagat Acharya" class="absolute inset-[6px] w-[calc(100%-12px)] h-[calc(100%-12px)] rounded-full object-cover object-top z-10 bg-gray-900">
                 </div>
             </div>
         </div>
@@ -197,7 +167,7 @@
                 <div class="overflow-hidden rounded-xl shadow-lg border border-gray-700 aspect-square">
                     <img src="dogpicture3.jpg" alt="My Dog 3" class="w-full h-full object-cover object-center hover:opacity-90 hover:scale-110 transition-all duration-500 cursor-pointer" onclick="openLightbox(this.src)">
                 </div>
-                <div class="overflow-hidden rounded-xl shadow-lg border border-gray-700 aspect-square col-span-2 md:col-span-2 lg:col-span-2 max-h-full">
+                <div class="overflow-hidden rounded-xl shadow-lg border border-gray-700 aspect-square">
                     <img src="biopicture.jpg" alt="Childhood Picture" class="w-full h-full object-cover object-top hover:opacity-90 hover:scale-110 transition-all duration-500 cursor-pointer" onclick="openLightbox(this.src)">
                 </div>
             </div>
@@ -433,8 +403,7 @@
                 <!-- CyRide Website -->
                 <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden flex flex-col fade-in delay-300 transition transform hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-64 overflow-hidden relative">
-                        <!-- Uses an Unsplash bus photo as a temporary fallback until you add cyride.jpg to your folder! -->
-                        <img src="cyride.jpg" alt="CyRide Website Screenshot" class="w-full h-full object-cover object-center absolute inset-0" onerror="this.src='https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800&auto=format&fit=crop';">
+                        <img src="cyride.JPG" alt="CyRide Website Screenshot" class="w-full h-full object-cover object-center absolute inset-0" onerror="this.src='https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800&auto=format&fit=crop';">
                     </div>
                     <div class="p-6 flex-grow flex flex-col justify-between bg-gray-800 relative z-10 border-t border-gray-700">
                         <div>
